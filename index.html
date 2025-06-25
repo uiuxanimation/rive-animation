@@ -1,95 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Smart Light Simulation</title>
+  <title>Rive Animation</title>
+  <script src="https://unpkg.com/@rive-app/webgl"></script>
   <style>
-    body {
-      font-family: sans-serif;
-      background: #121212;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 50px;
-    }
-
-    .light {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin: 20px;
-      background-color: #333;
-      box-shadow: 0 0 10px #000;
-      transition: all 0.3s ease;
-    }
-
-    .on {
-      background-color: #ffdd00;
-      box-shadow: 0 0 40px #ffdd00;
-    }
-
-    .pulsing {
-      animation: pulse 1s infinite;
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 20px #ffdd00; }
-      50% { box-shadow: 0 0 50px #ffdd00; }
-      100% { box-shadow: 0 0 20px #ffdd00; }
-    }
-
-    input[type=range] {
-      width: 200px;
-    }
-
-    .controls {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
+    body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    canvas { width: 500px; height: 500px; }
   </style>
 </head>
 <body>
-
-  <h2>Smart Light Animation (HTML + CSS + JS)</h2>
-
-  <div class="light" id="light"></div>
-
-  <div class="controls">
-    <label>
-      Power:
-      <input type="checkbox" id="powerToggle">
-    </label>
-
-    <label>
-      Brightness:
-      <input type="range" id="brightnessSlider" min="0" max="100" value="50">
-    </label>
-  </div>
-
+  <canvas id="riveCanvas"></canvas>
   <script>
-    const light = document.getElementById('light');
-    const powerToggle = document.getElementById('powerToggle');
-    const brightnessSlider = document.getElementById('brightnessSlider');
-
-    function updateLightState() {
-      const isOn = powerToggle.checked;
-      const brightness = parseInt(brightnessSlider.value, 10);
-
-      light.className = 'light'; // Reset
-
-      if (isOn) {
-        light.classList.add('on');
-        if (brightness > 80) {
-          light.classList.add('pulsing');
-        }
-      }
-    }
-
-    powerToggle.addEventListener('change', updateLightState);
-    brightnessSlider.addEventListener('input', updateLightState);
+    new rive.Rive({
+      src: "memory.riv",
+      canvas: document.getElementById("riveCanvas"),
+      autoplay: true,
+    });
   </script>
-
 </body>
 </html>
